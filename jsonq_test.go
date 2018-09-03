@@ -48,7 +48,7 @@ func tErr(t *testing.T, err error) {
 }
 
 func TestQuery(t *testing.T) {
-	data := map[string]interface{}{}
+	data := map[interface{}]interface{}{}
 	dec := json.NewDecoder(strings.NewReader(TestData))
 	err := dec.Decode(&data)
 	tErr(t, err)
