@@ -8,7 +8,7 @@ import (
 // JsonQuery is an object that enables querying of a Go map with a simple
 // positional query language.
 type JsonQuery struct {
-	blob map[string]interface{}
+	blob map[interface{}]interface{}
 }
 
 // stringFromInterface converts an interface{} to a string and returns an error if types don't match.
@@ -61,13 +61,13 @@ func intFromInterface(val interface{}) (int, error) {
 	return 0, fmt.Errorf("Expected numeric value for Int, got \"%v\"\n", val)
 }
 
-// objectFromInterface converts an interface{} to a map[string]interface{} and returns an error if types don't match.
-func objectFromInterface(val interface{}) (map[string]interface{}, error) {
+// objectFromInterface converts an interface{} to a map[interface{}]interface{} and returns an error if types don't match.
+func objectFromInterface(val interface{}) (map[interface{}]interface{}, error) {
 	switch val.(type) {
-	case map[string]interface{}:
-		return val.(map[string]interface{}), nil
+	case map[interface{}]interface{}:
+		return val.(map[interface{}]interface{}), nil
 	}
-	return map[string]interface{}{}, fmt.Errorf("Expected json object for Object, got \"%v\"\n", val)
+	return map[interface{}]interface{}{}, fmt.Errorf("Expected json object for Object, got \"%v\"\n", val)
 }
 
 // arrayFromInterface converts an interface{} to an []interface{} and returns an error if types don't match.
@@ -82,7 +82,7 @@ func arrayFromInterface(val interface{}) ([]interface{}, error) {
 // NewQuery creates a new JsonQuery obj from an interface{}.
 func NewQuery(data interface{}) *JsonQuery {
 	j := new(JsonQuery)
-	j.blob = data.(map[string]interface{})
+	j.blob = data.(map[interface{}]interface{})
 	return j
 }
 
@@ -123,10 +123,10 @@ func (j *JsonQuery) String(s ...string) (string, error) {
 }
 
 // Object extracts a json object from the JsonQuery
-func (j *JsonQuery) Object(s ...string) (map[string]interface{}, error) {
+func (j *JsonQuery) Object(s ...string) (map[interface{}]interface{}, error) {
 	val, err := rquery(j.blob, s...)
 	if err != nil {
-		return map[string]interface{}{}, err
+		return map[interface{}]interface{}{}, err
 	}
 	return objectFromInterface(val)
 }
@@ -213,13 +213,13 @@ func (j *JsonQuery) ArrayOfBools(s ...string) ([]bool, error) {
 	return toReturn, nil
 }
 
-// ArrayOfObjects extracts an array of map[string]interface{} (objects) from some json
-func (j *JsonQuery) ArrayOfObjects(s ...string) ([]map[string]interface{}, error) {
+// ArrayOfObjects extracts an array of map[interface{}]interface{} (objects) from some json
+func (j *JsonQuery) ArrayOfObjects(s ...string) ([]map[interface{}]interface{}, error) {
 	array, err := j.Array(s...)
 	if err != nil {
-		return []map[string]interface{}{}, err
+		return []map[interface{}]interface{}{}, err
 	}
-	toReturn := make([]map[string]interface{}, len(array))
+	toReturn := make([]map[interface{}]interface{}, len(array))
 	for index, val := range array {
 		toReturn[index], err = objectFromInterface(val)
 		if err != nil {
@@ -271,7 +271,7 @@ func rquery(blob interface{}, s ...string) (interface{}, error) {
 }
 
 // query a json blob for a single field or index.  If query is a string, then
-// the blob is treated as a json object (map[string]interface{}).  If query is
+// the blob is treated as a json object (map[interface{}]interface{}).  If query is
 // an integer, the blob is treated as a json array ([]interface{}).  Any kind
 // of key or index error will result in a nil return value with an error set.
 func query(blob interface{}, query string) (interface{}, error) {
@@ -291,12 +291,12 @@ func query(blob interface{}, query string) (interface{}, error) {
 
 	// blob is likely an object, but verify first
 	switch blob.(type) {
-	case map[string]interface{}:
+	case map[interface{}]interface{}:
 	default:
 		return nil, fmt.Errorf("Object lookup \"%s\" on non-object %v\n", query, blob)
 	}
 
-	val, ok := blob.(map[string]interface{})[query]
+	val, ok := blob.(map[interface{}]interface{})[query]
 	if !ok {
 		return nil, fmt.Errorf("Object %v does not contain field %s\n", blob, query)
 	}
