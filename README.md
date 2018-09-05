@@ -1,8 +1,9 @@
-# jsonq
 
-[![Build Status](https://drone.io/github.com/jmoiron/jsonq/status.png)](https://drone.io/github.com/jmoiron/jsonq/latest) [![Godoc](http://img.shields.io/badge/godoc-reference-blue.svg?style=flat)](https://godoc.org/github.com/jmoiron/jsonq) [![license](http://img.shields.io/badge/license-MIT-red.svg?style=flat)](https://raw.githubusercontent.com/jmoiron/jsonq/master/LICENSE)
+This is a fork of github.com/jmoiron/jsonq which seems not to be maintained anymore. This fork extends the original project in a way that allows to query yaml data as well as jsondata
 
+---
 
+# yamlq
 Simplify your golang json usage by extracting fields or items from arrays and objects with a simple, hierarchical query. [API Documentation](http://godoc.org/github.com/jmoiron/jsonq) on godoc.org.
 
 This package is meant to make working with complex feeds a bit more easy. If you have simple feeds you want to model with struct types, check out [jflect](http://github.com/str1ngs/jflect), which will create struct definitions given a json document.
@@ -10,7 +11,7 @@ This package is meant to make working with complex feeds a bit more easy. If you
 # installing
 
 ```
-go get github.com/jmoiron/jsonq
+go get github.com/covexo/jsonq
 ```
 
 # usage
@@ -41,7 +42,7 @@ Given some json data like:
 }
 ```
 
-Decode it into a `map[string]interface{}`:
+Decode it into a `map[interface{}]interface{}`:
 
 ```go
 import (
