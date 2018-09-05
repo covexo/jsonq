@@ -1,5 +1,5 @@
 /*
-Package jsonq simplify your json usage with a simple hierarchical query.
+Package yamlq simplify your json usage with a simple hierarchical query.
 
 Given some json data like:
 
@@ -30,13 +30,13 @@ Decode it into a map[string]interrface{}:
 	import (
 		"strings"
 		"encoding/json"
-		"github.com/jmoiron/jsonq"
+		"github.com/jmoiron/yamlq"
 	)
 
 	data := map[string]interface{}{}
 	dec := json.NewDecoder(strings.NewReader(jsonstring))
 	dec.Decode(&data)
-	jq := jsonq.NewQuery(data)
+	jq := yamlq.NewQuery(data)
 
 From here, you can query along different keys and indexes:
 
@@ -59,4 +59,4 @@ For simplicity, integer keys (ie, {"0": "zero"}) are inaccessible by `jsonq`
 as integer strings are assumed to be array indexes.
 
 */
-package jsonq
+package yamlq
