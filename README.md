@@ -1,5 +1,5 @@
 
-This is a fork of github.com/jmoiron/jsonq which seems not to be maintained anymore. This fork extends the original project in a way that allows to query yaml data as well as jsondata
+This is a fork of github.com/jmoiron/jsonq which seems not to be maintained anymore. This fork extends the original project in a way that allows to query yaml data as well as json data.
 
 ---
 
