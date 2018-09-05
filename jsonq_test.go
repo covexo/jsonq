@@ -1,4 +1,4 @@
-package jsonq
+package yamlq
 
 import (
 	"encoding/json"
